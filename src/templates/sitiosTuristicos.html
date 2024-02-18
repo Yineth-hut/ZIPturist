@@ -1,13 +1,10 @@
 {% extends 'Inicio.html' %}
 {% block content %}
-
 <div class="page-title" style="background-image: url(static/images/image.jpg)">
     <h1>Sitios Turísticos</h1>
 </div>
-
 <section id="team-area">
     <div class="container">
-       
         <div class="row">
             {% for d in data %}
             {% set urlImagenes = 'static/fotos_turismo/' %}
@@ -23,12 +20,10 @@
                     </div>
                 </div>
             </div>
-            
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
-
 {% endblock %}
 

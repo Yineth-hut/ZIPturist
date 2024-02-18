@@ -3,11 +3,9 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Registrar Centro Religioso</h6>
-                    
                 </div>
                 <div class="card-body">
                   <form action="{{url_for('registerCentrosR')}}" method="POST" class="mb-3" autocomplete="off" enctype="multipart/form-data">
-                    
                     <div class="form-group"> 
                       <label for="nombre2">Ingrese el nombre</label>
                       <input type="text"  required="" class="form-control form-control-sm" id="nombre2" name="nombre"  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-0-9]{2,48}" required>

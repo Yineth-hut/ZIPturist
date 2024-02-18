@@ -15,8 +15,6 @@
 <div class="row">
     
     <div class="col-lg-6">
-
-        <!-- Default Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Centros Religiosos</h6>
@@ -29,15 +27,11 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Imagen</th>
-                                   
-                                    
-                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for d in data %}
                                 <tr>
-                                    
                                     <td>{{d.nombre_Centro}}</td>
                                     {% set urlImagenes = 'static/fotos_turismo/' %}
                                     <td><img src="{{ urlImagenes }}{{ d.imagen_Centro }}" width="80" height="80" ></td>
@@ -92,8 +86,6 @@
                 </div>
             </div>
         </div>
-
-       
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"> Artesanías</h6>
@@ -105,30 +97,22 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Imagen</th>
-                               
-                                
-                               
                             </tr>
                         </thead>
-    
                         <tbody>
                             {% for d in datos3 %}
                             <tr>
-                                
                                 <td>{{d.nombre_artesanias}}</td>
                                 {% set urlImagenes = 'static/fotos_turismo/' %}
                                 <td><img src="{{ urlImagenes }}{{ d.imagen_artesanias }}" width="80" height="80" ></td>
-        
                                 <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.id_artesanias}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id_artesanias}}">Editar</button></td>
                                 <td><a  class="btn  btn-sm"  href="{{url_for('deleteA', id=d.id_artesanias)}}">Borrar</a></td>
                             </tr>
-
                             <div class="modal fade" id="modal{{d.id_artesanias}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre_artesanias}}</h1>
-                    
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -170,7 +154,6 @@
                 </div>
             </div>
         </div>
-<!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"> Actividades Representativas</h6>
@@ -182,17 +165,10 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Imagen</th>
-                                
-                               
                             </tr>
-                            
                         </thead>
-    
                         <tbody>
-                            
                             {% for d in datos1 %}
-                           
-                            
                             <tr>
                                 {% set urlImagenes = 'static/fotos_turismo/' %}
                                 <td>{{d.nombre_Actividad}}</td>
@@ -248,20 +224,9 @@
                 </div>
             </div>
         </div>
-
-        
-
     </div>
-
-   
-
-
-
     <div class="col-lg-6">
-
-        <!-- Dropdown Card Example -->
         <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"> Sitios Turísticos</h6>
@@ -274,21 +239,14 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Imagen</th>
-                               
-                                
-                               
                             </tr>
                         </thead>
-    
                         <tbody>
                             {% for d in datos2 %}
                             <tr>
-                                
                                 <td>{{d.nombre_sitiosT}}</td>
                                 {% set urlImagenes = 'static/fotos_turismo/' %}
                                 <td><img src="{{ urlImagenes }}{{ d.imagen_sitiosT }}" width="80" height="80" ></td>
-                                
-                                
                                 <td><button class="btn btn-primary btn-sm" id="btn-editSt{{d.id_sitiosT}}" data-bs-toggle="modal" data-bs-target="#modalSt{{d.id_sitiosT}}">Editar</button></td>
                                 <td><a  class="btn  btn-sm" href="{{url_for('deleteS', id=d.id_sitiosT)}}">Borrar</a></td>
                             </tr>
@@ -297,7 +255,6 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre_sitiosT}}</h1>
-                    
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -333,15 +290,11 @@
                                 </div>
                               </div>
                             {% endfor %}
-                            
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-           
-       <!-- Basic Card Example -->
        <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary"> Restaurantes</h6>
@@ -353,16 +306,11 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Imagen</th>
-                           
-                            
-                           
                         </tr>
                     </thead>
-
                     <tbody>
                         {% for d in dato %}
                         <tr>
-                            
                             <td>{{d.nombre_restaurante}}</td>
                             {% set urlImagenes = 'static/fotos_turismo/' %}
                             <td><img src="{{ urlImagenes }}{{ d.imagen_restaurante }}" width="80" height="80" ></td>
@@ -374,7 +322,6 @@
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre_restaurante}}</h1>
-                
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -416,10 +363,7 @@
             </div>
         </div>
     </div>
-
-        <!-- Collapsable Card Example -->
         <div class="card shadow mb-4">
-            <!-- Card Header - Accordion -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Hoteles</h6>
             </div>
@@ -430,16 +374,11 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Imagen</th>
-                               
-                                
-                               
                             </tr>
                         </thead>
-    
                         <tbody>
                             {% for d in datos %}
                             <tr>
-                                
                                 <td>{{d.nombre_hotel}}</td>
                                 {% set urlImagenes = 'static/fotos_turismo/' %}
                                 <td><img src="{{ urlImagenes }}{{ d.imagen_hotel }}" width="80" height="80" ></td>
@@ -451,12 +390,10 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.nombre_hotel}}</h1>
-                    
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form action="/editH/{{d.id_hotel}}" method="post"  class="mb-3" autocomplete="off" enctype="multipart/form-data">
-                                    
                                             <div class="form-group"> 
                                                 <label for="nombre2">Ingrese el nombre</label>
                                                 <input type="text"  required="" class="form-control form-control-sm" id="nombre2" name="nombre" value="{{d.nombre_hotel}}" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-0-9]{2,48}" required>
@@ -487,7 +424,6 @@
                                 </div>
                               </div>
                             {% endfor %}
-                            
                         </tbody>
                     </table>
                 </div>

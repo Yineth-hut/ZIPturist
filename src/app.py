@@ -11,8 +11,6 @@ from io import BytesIO
 from flask import Flask, send_file
 import os
 from werkzeug.utils import secure_filename 
-
-
 # Models:
 from models.ModeloUsuario import ModeloUsuario
 
@@ -24,8 +22,6 @@ db = MySQL(app)
 csrf = CSRFProtect()
 login_manager_app = LoginManager(app)
 
-
-
 @login_manager_app.user_loader
 def load_user(id):
     return ModeloUsuario.get_by_id(db, id)
@@ -33,9 +29,6 @@ def load_user(id):
 #Para subir archivo tipo foto al servidor
 import os
 from werkzeug.utils import secure_filename 
-
-
-
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -77,7 +70,6 @@ def singup():
 def register():
     if request.method=="POST":
         contraseña=request.form['pass']
-
         texto_encriptado1 = generate_password_hash(contraseña)
         name=request.form['nombre']
         correo=request.form['email']
@@ -87,7 +79,6 @@ def register():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('login'))
-        
     else:
         return "nooooooo"   
 
@@ -112,8 +103,6 @@ def registerCentrosR():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
-        
     else:
         return "nooooooo"
 
@@ -142,7 +131,6 @@ def registerActividadesR():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
     else:
         return "nooooooo"
 
@@ -169,7 +157,6 @@ def registerHotel():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
     else:
         return "nooooooo"
 
@@ -196,7 +183,6 @@ def registerSitio():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
     else:
         return "nooooooo"
     
@@ -223,7 +209,6 @@ def registerRestaurantes():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
     else:
         return "nooooooo"
 
@@ -250,7 +235,6 @@ def registerArtesanias():
         cursor.execute(query)
         db.connection.commit()
         return redirect(url_for('admin'))
-        
     else:
         return "nooooooo"
 
@@ -268,7 +252,6 @@ def edit(id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE artesanias 
@@ -280,7 +263,6 @@ def edit(id):
                    WHERE id_artesanias= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
 
 @app.route('/editAr/<string:id>', methods=['POST'])
@@ -291,7 +273,6 @@ def editAr(id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE actividadesReprecentativas 
@@ -303,7 +284,6 @@ def editAr(id):
                    WHERE id_Actividad= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
 
 @app.route('/editCr/<string:id>', methods=['POST'])
@@ -314,7 +294,6 @@ def editCr (id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE CentrosReligiosos 
@@ -326,7 +305,6 @@ def editCr (id):
                    WHERE id_Centro= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
     
 @app.route('/editSt/<string:id>', methods=['POST'])
@@ -337,7 +315,6 @@ def editSt(id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE sitiosTuristicos 
@@ -349,7 +326,6 @@ def editSt(id):
                    WHERE id_sitiosT= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
 
 @app.route('/editR/<string:id>', methods=['POST'])
@@ -360,7 +336,6 @@ def editR(id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE restaurantes 
@@ -372,7 +347,6 @@ def editR(id):
                    WHERE id_restaurante= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
 
 
@@ -384,7 +358,6 @@ def editH(id):
     contacto = request.form['contacto']
     file = request.files['imagen']
     nuevoNombreFile = recibeFoto(file)
-
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE hoteles 
@@ -396,7 +369,6 @@ def editH(id):
                    WHERE id_hotel= %s"""
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
-
     return redirect(url_for('admin'))
 
 @app.route('/admin')
@@ -411,7 +383,6 @@ def admin():
     for record in myresult:
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
-
     cursor=db.connection.cursor()
     cursor.execute("SELECT * FROM restaurantes")
     myresultado = cursor.fetchall()
@@ -452,7 +423,6 @@ def admin():
         insertObjectos1.append(dict(zip(columnNames, record)))
     cursor.close()
 
-    
     cursor=db.connection.cursor()
     cursor.execute("SELECT * FROM artesanias")
     myresultados3 = cursor.fetchall()
@@ -464,9 +434,6 @@ def admin():
     cursor.close()
     return render_template('admin.html', data=insertObject, dato=insertObjecto, datos=insertObjectos,datos1=insertObjectos1,datos2=insertObjectos2,datos3=insertObjectos3)
 
- 
-
-
 @app.route('/delete/<string:id>')
 def delete(id):
     cursor=db.connection.cursor()
@@ -476,8 +443,6 @@ def delete(id):
     db.connection.commit()
     return redirect(url_for('admin'))
 
-
-
 @app.route('/deleteR/<string:id>')
 def deleteR(id):
     cursor=db.connection.cursor()
@@ -486,7 +451,6 @@ def deleteR(id):
     cursor.execute(sql, data)
     db.connection.commit()
     return redirect(url_for('admin')) 
-
 
 @app.route('/deleteH/<string:id>')
 def deleteH(id):
@@ -527,7 +491,6 @@ def deleteA(id):
 @app.route('/home')
 def home():
     return render_template('home.html')
-
 
 def recibeFoto(file):
     print(file)
@@ -726,10 +689,6 @@ def status_401(error):
 
 def status_404(error):
     return render_template('404.html')
-
-
-
-
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])
