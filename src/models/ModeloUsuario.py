@@ -1,6 +1,6 @@
 from .entities.Usuario import Usuario
 
-
+#Creación del modelo de usuario
 class ModeloUsuario():
 
     @classmethod

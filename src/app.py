@@ -17,9 +17,11 @@ from models.ModeloUsuario import ModeloUsuario
 # Entities:
 from models.entities.Usuario import Usuario
 
+#Definición de archivos estaticos
 app = Flask(__name__, static_folder='static', template_folder='templates')
+#Conexion con la base de datos
 db = MySQL(app)
-csrf = CSRFProtect()
+#Manejo de sesiones
 login_manager_app = LoginManager(app)
 
 @login_manager_app.user_loader
@@ -30,6 +32,7 @@ def load_user(id):
 import os
 from werkzeug.utils import secure_filename 
 
+#Función autenticación de usuario y definicón de ruta correspondiente al inicio de sesión.
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -48,24 +51,28 @@ def login():
     else:
         return render_template('auth/login.html')
 
+#Función generar ruta correspondiente a cerrar sesión y retorna al template de inicio de sesión
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+#Creación de ruta para pagína inicial
 @app.route('/inicio')
 def inicio():
     return render_template('contenidoInicio.html')
 
+#Creación de ruta para visualizar los tipos de sitios disponibles.
 @app.route('/servicios')
 def servicios():
     return render_template('paginaInicial.html')
 
+# Definición de ruta para la creacion de la cuenta
 @app.route('/singup')
 def singup():
-    
     return render_template('auth/singUp.html')
 
+#Función para registrar un nuevo usuario en el sistema 
 @app.route('/register', methods=["POST"])
 def register():
     if request.method=="POST":
@@ -80,13 +87,15 @@ def register():
         db.connection.commit()
         return redirect(url_for('login'))
     else:
-        return "nooooooo"   
-
+        return "nooooooo"  
+     
+#Función para definir la ruta del template formulario para registrar centros religiosos
 @app.route('/formularioCentrosR')
 @login_required
 def formulario():
     return render_template('formlarioCentrosR.html')
 
+#Función que permite agregar información de un centro religioso a la base de datos
 @app.route('/registerCentrosR', methods=["POST"])
 def registerCentrosR():
     if request.method=="POST":
@@ -106,12 +115,13 @@ def registerCentrosR():
     else:
         return "nooooooo"
 
-
+#Función para definir la ruta del template formulario para registrar actividades representativas 
 @app.route('/formularioActividadesR')
 @login_required
 def formularioActividadesR():
     return render_template('formularioActividadesR.html')
 
+#Función que permite agregar información de una actividad representativa a la base de datos
 @app.route('/registerActividadesR', methods=["POST"])
 def registerActividadesR():
     if request.method=="POST":
@@ -134,11 +144,13 @@ def registerActividadesR():
     else:
         return "nooooooo"
 
+#Función para definir la ruta del template formulario para registrar hoteles 
 @app.route('/formularioHotel')
 @login_required
 def formularioHotel():
     return render_template('formularioHoteles.html')
 
+#Función que permite agregar información de una actividad representativa a la base de datos
 @app.route('/registerHotel', methods=["POST"])
 def registerHotel():
     if request.method=="POST":
@@ -160,11 +172,13 @@ def registerHotel():
     else:
         return "nooooooo"
 
+#Función para definir la ruta del template formulario para registrar sitios turisticos
 @app.route('/formularioSitio')
 @login_required
 def formularioSitio():
     return render_template('formularioSitio.html')
 
+#Función que permite agregar información de un sitio turistco a la base de datos
 @app.route('/registerSitio', methods=["POST"])
 def registerSitio():
     if request.method=="POST":
@@ -185,12 +199,14 @@ def registerSitio():
         return redirect(url_for('admin'))
     else:
         return "nooooooo"
-    
+
+#Función para definir la ruta del template formulario para registrar restaurantes
 @app.route('/formularioRestaurantes')
 @login_required
 def formularioRestaurantes():
     return render_template('formularioRestaurantes.html')
 
+#Función que permite agregar información de un restaurante a la base de datos
 @app.route('/registerRestaurantes', methods=["POST"])
 def registerRestaurantes():
     if request.method=="POST":
@@ -212,11 +228,13 @@ def registerRestaurantes():
     else:
         return "nooooooo"
 
+#Función para definir la ruta del template formulario para registrar artesanias
 @app.route('/formularioArtesanias')
 @login_required
 def formularioArtesanias():
     return render_template('formularioArtesanias.html')
 
+#Función que permite agregar información de las artesanias a la base de datos
 @app.route('/registerArtesanias', methods=["POST"])
 def registerArtesanias():
     if request.method=="POST":
@@ -238,12 +256,7 @@ def registerArtesanias():
     else:
         return "nooooooo"
 
-
-@app.route('/modal_artesanias')
-@login_required
-def modal_artesanias():
-    return render_template('modal_artesanias.html')
-
+#Función para editar informacion correspondiente a una artesania en especico
 @app.route('/edit/<string:id>', methods=['POST'])
 def edit(id):
     nombre = request.form['nombre']
@@ -265,6 +278,7 @@ def edit(id):
         db.connection.commit()
     return redirect(url_for('admin'))
 
+#Función para editar informacion correspondiente a una actividad Reprecentativa en especico
 @app.route('/editAr/<string:id>', methods=['POST'])
 def editAr(id):
     nombre = request.form['nombre']
@@ -286,6 +300,8 @@ def editAr(id):
         db.connection.commit()
     return redirect(url_for('admin'))
 
+
+#Función para editar informacion correspondiente a un centro religioso en especico
 @app.route('/editCr/<string:id>', methods=['POST'])
 def editCr (id):
     nombre = request.form['nombre']
@@ -306,7 +322,8 @@ def editCr (id):
         cursor.execute(query, (nombre, direccion, descripcion, contacto, nuevoNombreFile, id))
         db.connection.commit()
     return redirect(url_for('admin'))
-    
+
+#Función para editar informacion correspondiente a un sitio turistico en especico
 @app.route('/editSt/<string:id>', methods=['POST'])
 def editSt(id):
     nombre = request.form['nombre']
@@ -328,6 +345,8 @@ def editSt(id):
         db.connection.commit()
     return redirect(url_for('admin'))
 
+
+#Función para editar informacion correspondiente a un restaurante en especico
 @app.route('/editR/<string:id>', methods=['POST'])
 def editR(id):
     nombre = request.form['nombre']
@@ -349,7 +368,7 @@ def editR(id):
         db.connection.commit()
     return redirect(url_for('admin'))
 
-
+#Función para editar informacion correspondiente a un hotel en especico
 @app.route('/editH/<string:id>', methods=['POST'])
 def editH(id):
     nombre = request.form['nombre']
@@ -371,6 +390,7 @@ def editH(id):
         db.connection.commit()
     return redirect(url_for('admin'))
 
+#Función pagína de administrador que recopila las consultas de los datos de cada uno de los registros por categoria
 @app.route('/admin')
 @login_required
 def admin():
@@ -383,6 +403,7 @@ def admin():
     for record in myresult:
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
+
     cursor=db.connection.cursor()
     cursor.execute("SELECT * FROM restaurantes")
     myresultado = cursor.fetchall()
@@ -434,6 +455,7 @@ def admin():
     cursor.close()
     return render_template('admin.html', data=insertObject, dato=insertObjecto, datos=insertObjectos,datos1=insertObjectos1,datos2=insertObjectos2,datos3=insertObjectos3)
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/delete/<string:id>')
 def delete(id):
     cursor=db.connection.cursor()
@@ -443,6 +465,7 @@ def delete(id):
     db.connection.commit()
     return redirect(url_for('admin'))
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/deleteR/<string:id>')
 def deleteR(id):
     cursor=db.connection.cursor()
@@ -452,6 +475,7 @@ def deleteR(id):
     db.connection.commit()
     return redirect(url_for('admin')) 
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/deleteH/<string:id>')
 def deleteH(id):
     cursor=db.connection.cursor()
@@ -461,6 +485,7 @@ def deleteH(id):
     db.connection.commit()
     return redirect(url_for('admin')) 
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/deleteS/<string:id>')
 def deleteS(id):
     cursor=db.connection.cursor()
@@ -470,6 +495,7 @@ def deleteS(id):
     db.connection.commit()
     return redirect(url_for('admin')) 
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/deleteAr/<string:id>')
 def deleteAr(id):
     cursor=db.connection.cursor()
@@ -479,6 +505,7 @@ def deleteAr(id):
     db.connection.commit()
     return redirect(url_for('admin')) 
 
+#Función para eliminar un registro en especifico de los entros religiosos 
 @app.route('/deleteA/<string:id>')
 def deleteA(id):
     cursor=db.connection.cursor()
@@ -488,10 +515,7 @@ def deleteA(id):
     db.connection.commit()
     return redirect(url_for('admin')) 
 
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
+#Funcion para guardar el nombre de la imagen en la base de datos y el  archivo en la carpeta correspondiente
 def recibeFoto(file):
     print(file)
     basepath = os.path.dirname (__file__) #La ruta donde se encuentra el archivo actual
@@ -500,13 +524,12 @@ def recibeFoto(file):
     #capturando extensión del archivo ejemplo: (.png, .jpg, .pdf ...etc)
     extension           = os.path.splitext(filename)[1]
     nuevoNombreFile     = stringAleatorio() + extension
-    #print(nuevoNombreFile)
-        
     upload_path = os.path.join (basepath, 'static/fotos_turismo', nuevoNombreFile) 
     file.save(upload_path)
 
     return nuevoNombreFile
 
+#Función para renombrar lo sarchivos de las imagenes de una forma aleatiria
 def stringAleatorio():
     string_aleatorio = "0123456789abcdefghijklmnopqrstuvwxyz_"
     longitud         = 20
@@ -515,6 +538,7 @@ def stringAleatorio():
     string_aleatorio     = "".join(resultado_aleatorio)
     return string_aleatorio
 
+#Función consulta de las actividades representativas guardadas 
 @app.route('/actividadesRepresentativas')
 def actividadesRepresentativas():
     cursor=db.connection.cursor()
@@ -528,6 +552,7 @@ def actividadesRepresentativas():
     cursor.close()
     return render_template('actividadesRepresentativas.html', data=actividades)
 
+#Función consulta de las artesanias  guardadas 
 @app.route('/artesanias')
 def artesanias():
     cursor=db.connection.cursor()
@@ -541,6 +566,7 @@ def artesanias():
     cursor.close()
     return render_template('artesanias.html', data=artesanias)
 
+#Función consulta de los hoteles guardados 
 @app.route('/hoteles')
 def hoteles():
     cursor=db.connection.cursor()
@@ -554,6 +580,7 @@ def hoteles():
     cursor.close()
     return render_template('hoteles.html', data=hotel)
 
+#Función consulta de los restaurantes guardados 
 @app.route('/restaurantes')
 def restaurantes():
     cursor=db.connection.cursor()
@@ -567,6 +594,7 @@ def restaurantes():
     cursor.close()
     return render_template('restaurantes.html', data=restaurante)
 
+#Función consulta de los centros religiosos guardados 
 @app.route('/centrosReligiosos')
 def centrosReligiosos():
     cursor=db.connection.cursor()
@@ -580,6 +608,7 @@ def centrosReligiosos():
     cursor.close()
     return render_template('centrosReligiosos.html', data=centro)
 
+#Función consulta de los sitios turisticos guardados  
 @app.route('/sitiosTuristicos')
 def sitiosTuristicos():
     cursor=db.connection.cursor()
@@ -593,6 +622,7 @@ def sitiosTuristicos():
     cursor.close()
     return render_template('sitiosTuristicos.html', data=sitio)
 
+#Función para visualizar la informacion de una actividad representativa en especifico
 @app.route('/verActividad/<string:id>')
 def verActividad(id):
     cursor=db.connection.cursor()
@@ -608,6 +638,7 @@ def verActividad(id):
     cursor.close()
     return render_template('verActividad.html', data=actividad)
 
+#Función para visualizar la informacion de un sitio turistico en especifico
 @app.route('/verSitio/<string:id>')
 def verSitio(id):
     cursor=db.connection.cursor()
@@ -623,6 +654,7 @@ def verSitio(id):
     cursor.close()
     return render_template('verSitio.html', data=sitio)
 
+#Función para visualizar la informacion de una artesania en especifico
 @app.route('/verArtesania/<string:id>')
 def verArtesania(id):
     cursor=db.connection.cursor()
@@ -638,6 +670,7 @@ def verArtesania(id):
     cursor.close()
     return render_template('verArtesania.html', data=artesanias)
 
+#Función para visualizar la informacion de un hotel en especifico
 @app.route('/verHotel/<string:id>')
 def verHotel(id):
     cursor=db.connection.cursor()
@@ -653,6 +686,7 @@ def verHotel(id):
     cursor.close()
     return render_template('verHotel.html', data=hotel)
 
+#Función para visualizar la informacion de un restaurante en especifico
 @app.route('/verRestaurante/<string:id>')
 def verRestaurante(id):
     cursor=db.connection.cursor()
@@ -668,6 +702,7 @@ def verRestaurante(id):
     cursor.close()
     return render_template('verRestaurante.html', data=restaurante)
 
+#Función para visualizar la informacion de un centro religioso en especifico
 @app.route('/verCentro/<string:id>')
 def verCentro(id):
     cursor=db.connection.cursor()
@@ -686,13 +721,12 @@ def verCentro(id):
 def status_401(error):
     return redirect(url_for('login'))
     
-
 def status_404(error):
     return render_template('404.html')
 
+#iniciación de la aplicacion en flask.
 if __name__ == '__main__':
     app.config.from_object(config['development'])
-   
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)
     app.run()
