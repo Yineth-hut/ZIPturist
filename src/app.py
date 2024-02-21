@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash
 from random import sample
 from io import BytesIO
 from flask import Flask, send_file
+from werkzeug.datastructures import FileStorage
 import os
 from werkzeug.utils import secure_filename 
 # Models:
@@ -263,8 +264,17 @@ def edit(id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_artesanias FROM Artesanias WHERE id_artesanias=%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE artesanias 
@@ -285,8 +295,17 @@ def editAr(id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_Actividad  FROM actividadesReprecentativas WHERE id_Actividad =%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE actividadesReprecentativas 
@@ -308,8 +327,17 @@ def editCr (id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_Centro  FROM CentrosReligiosos WHERE id_Centro =%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE CentrosReligiosos 
@@ -330,8 +358,17 @@ def editSt(id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_sitiosT  FROM sitiosTuristicos  WHERE id_sitiosT =%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE sitiosTuristicos 
@@ -353,8 +390,17 @@ def editR(id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_restaurante FROM restaurantes  WHERE id_restaurante=%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE restaurantes 
@@ -375,8 +421,17 @@ def editH(id):
     direccion = request.form['direccion']
     descripcion = request.form['descripcion']
     contacto = request.form['contacto']
-    file = request.files['imagen']
-    nuevoNombreFile = recibeFoto(file)
+    if (request.files['imagen']):
+        file = request.files['imagen']
+        nuevoNombreFile = recibeFoto(file)
+    else:
+        cursor = db.connection.cursor()
+        sql = "SELECT imagen_hotel FROM hoteles  WHERE id_hotel=%s"
+        data = (id,)
+        cursor.execute(sql, data)
+        db.connection.commit()
+        myresultados1 = cursor.fetchall()
+        nuevoNombreFile=myresultados1
     if nombre and direccion and descripcion and contacto and nuevoNombreFile:
         cursor = db.connection.cursor()
         query = """UPDATE hoteles 

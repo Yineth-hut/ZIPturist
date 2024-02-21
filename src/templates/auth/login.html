@@ -34,13 +34,13 @@
                 
                 <div class="initial-input validate-input m-b-2" data-validate="Username is required">
                     <span class="label-input">Correo</span>
-                    <input class="input" type="email" name="correo_Usuario" required="" placeholder="" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required>
+                    <input class="input" type="email" name="correo_Usuario" required="" placeholder="" pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s){8,15}$/" required>
                     <span class="focus-input"></span>
                 </div>
 
                 <div class="initial-input validate-input m-b-2" data-validate = "Password is required">
                     <span class="label-input">Contraseña</span>
-                    <input class="input" type="password" name="contraseña_Usuario" required="" placeholder="" pattern="[A-Za-z0-9!?-]{8,20}" required>
+                    <input class="input" type="password" name="contraseña_Usuario" required="" placeholder="" pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s){8,15}$/" required>
                     <span class="focus-input"></span>
                 </div>
 
