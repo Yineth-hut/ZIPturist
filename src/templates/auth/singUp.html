@@ -43,7 +43,7 @@
             </div>
             {% endfor %}
             {% endif %}
-                    {% endwith %}
+            {% endwith %}
             <form class="initial-form validate-form" method="POST" action="{{url_for('register')}}">
                 
                 <div class="initial-input validate-input m-b-2" data-validate="Username is required">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="initial-input validate-input m-b-1" data-validate = "Password is required">
                     <span class="label-input">Confirmar Contraseña</span>
-                    <input class="input" type="password" onclick="ocultarPremio();" name="Cpass"  title="Las contraseñas deben coincidir" required="" placeholder="" >
+                    <input class="input" type="password" onclick="ocultarPremio();" name="pass"  title="Las contraseñas deben coincidir" required="" placeholder="" >
                     <span class="focus-input"></span>
                 </div>
                 <div class="flex-sb-m w-full p-b-0">
@@ -81,7 +81,7 @@
                     </div>
 
                     <div>
-                        <a href="{{ url_for('login') }}" class="txt1">Login</a>
+                        <a href="{{ url_for('login') }}" class="txt1">Inicio Sesión</a>
                     </div>
                 </div>
 
@@ -91,6 +91,7 @@
             </form>
 
             <script type="text/javascript">
+
                 function mostrarPremio() {
                     document.getElementById('hola').style.display = 'block';
                     document.getElementById('hol').style.display = 'none';
@@ -100,7 +101,18 @@
                     document.getElementById('hola').style.display = 'none';
                     document.getElementById('hol').style.display = 'block';
                 }
-        
+
+                function contraseña() {
+                    var eye = document.getElementById('Eye');
+                    var input = document.getElementById('pass');
+                    eye.addEventListener("click", function() {
+                         if (input.type === "password") {
+                            input.type = "text";
+                        } else {
+                            input.type = "password";
+                        }
+                    });
+                }
             </script>
         </div>
     </div>

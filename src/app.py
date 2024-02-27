@@ -10,7 +10,7 @@ from random import sample
 from io import BytesIO
 from flask import Flask, send_file
 from werkzeug.datastructures import FileStorage
-import os
+import os, re
 from werkzeug.utils import secure_filename 
 # Models:
 from models.ModeloUsuario import ModeloUsuario
@@ -59,7 +59,7 @@ def logout():
     return redirect(url_for('login'))
 
 #Creación de ruta para pagína inicial
-@app.route('/inicio')
+@app.route('/')
 def inicio():
     return render_template('contenidoInicio.html')
 
@@ -78,15 +78,21 @@ def singup():
 def register():
     if request.method=="POST":
         contraseña=request.form['pass']
-        texto_encriptado1 = generate_password_hash(contraseña)
-        name=request.form['nombre']
-        correo=request.form['email']
-        contraseñaE=texto_encriptado1
-        query =f"INSERT INTO usuario(nombre_Usuario,correo_Usuario,contraseña_Usuario) VALUES('{name}','{correo}','{contraseñaE}')"
-        cursor=db.connection.cursor()
-        cursor.execute(query)
-        db.connection.commit()
-        return redirect(url_for('login'))
+        patron = r'^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$'
+        if re.match(patron, contraseña):
+            flash("Registro correcto")
+            texto_encriptado1 = generate_password_hash(contraseña)
+            name=request.form['nombre']
+            correo=request.form['email']
+            contraseñaE=texto_encriptado1
+            query =f"INSERT INTO usuario(nombre_Usuario,correo_Usuario,contraseña_Usuario) VALUES('{name}','{correo}','{contraseñaE}')"
+            cursor=db.connection.cursor()
+            cursor.execute(query)
+            db.connection.commit()
+            return redirect(url_for('login'))
+        else: 
+            flash("Contraseña insegura, tener en cuenta las recomendaciones dadas" )
+            return redirect(url_for('singup'))
     else:
         return "nooooooo"  
      
